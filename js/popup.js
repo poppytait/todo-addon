@@ -1,15 +1,80 @@
-let changeColor = document.getElementById('changeColor');
+const getTodos = () => {
+  let todos = new Array;
+  let todosStr = localStorage.getItem('todo');
+  if (todosStr != null) {
+      todos = JSON.parse(todosStr); 
+  }
+  return todos;
+}
 
-chrome.storage.sync.get('color', function(data) {
-  changeColor.style.backgroundColor = data.color;
-  changeColor.setAttribute('value', data.color);
+const add = () => {
+  const task = document.getElementById('task').value;
 
-  changeColor.onclick = function(element) {
-    let color = element.target.value;
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-      chrome.tabs.executeScript(
-        tabs[0].id,
-        {code: 'document.body.style.backgroundColor = "' + color + '";'});
-      });
-    };
-  });
+  let todos = getTodos();
+  todos.push(task);
+  localStorage.setItem('todo', JSON.stringify(todos));
+
+  show();
+
+  return false;
+}
+
+const show = () => {
+  let todos = getTodos();
+
+  let renderTodo = '<ul>'
+
+  for(let i=0; i<todos.length; i++) {
+    renderTodo += `<li>${todos[i]}<button class="remove" id="${i}">x</button><input type="checkbox" id="${i}"><p class="complete" style="display:none">complete</p></li>`;
+  };
+  renderTodo += '</ul>';
+
+  document.getElementById('todos').innerHTML = renderTodo;
+
+  let buttons = document.getElementsByClassName('remove');
+  for (let i=0; i < buttons.length; i++) {
+      buttons[i].addEventListener('click', remove);
+  };
+
+  let checkboxes = document.querySelectorAll('input[type=checkbox]');
+  for (let i=0; i < checkboxes.length; i++) {
+    checkboxes[i].addEventListener('click', markAsComplete);
+  }
+}
+
+const markAsComplete = (event) => {
+  let checkBox = event.target;
+  let id = event.target.id;
+  
+  let complete = document.getElementsByClassName('complete');
+
+  if (checkBox.checked) {
+    complete[id].style.display = "block"
+  } else {
+    complete[id].style.display = "none";
+  }
+
+  return false;
+}
+
+
+const remove = (event) => {
+
+  console.log(event)
+  let id = event.target.id;
+  let todos = getTodos();
+  todos.splice(id, 1); 
+  localStorage.setItem('todo', JSON.stringify(todos));
+
+  show();
+
+  return false;
+}
+
+
+document.getElementById('add').addEventListener('click', add);
+show();
+
+
+
+
