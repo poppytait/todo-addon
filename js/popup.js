@@ -32,11 +32,12 @@ const show = () => {
   document.getElementById('todos').innerHTML = renderTodo;
 
   let buttons = document.getElementsByClassName('remove');
-  for (let i=0; i < buttons.length; i++) {
-      buttons[i].addEventListener('click', remove);
-  };
+  Array.from(buttons).map(button => button.addEventListener('click', remove));
+
 
   let checkboxes = document.querySelectorAll('input[type=checkbox]');
+  Array.from(checkboxes).map(checkbox => checkbox.addEventListener('click', markAsComplete));
+
   for (let i=0; i < checkboxes.length; i++) {
     checkboxes[i].addEventListener('click', markAsComplete);
   }
@@ -59,7 +60,6 @@ const markAsComplete = (event) => {
 
 
 const remove = (event) => {
-
   console.log(event)
   let id = event.target.id;
   let todos = getTodos();
