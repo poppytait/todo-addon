@@ -34,13 +34,8 @@ const show = () => {
   let buttons = document.getElementsByClassName('remove');
   Array.from(buttons).map(button => button.addEventListener('click', remove));
 
-
   let checkboxes = document.querySelectorAll('input[type=checkbox]');
   Array.from(checkboxes).map(checkbox => checkbox.addEventListener('click', markAsComplete));
-
-  for (let i=0; i < checkboxes.length; i++) {
-    checkboxes[i].addEventListener('click', markAsComplete);
-  }
 }
 
 const markAsComplete = (event) => {
