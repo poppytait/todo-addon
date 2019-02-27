@@ -1,5 +1,5 @@
 const getTodos = () => {
-  let todos = new Array;
+  let todos = [];
   let todosStr = localStorage.getItem('todo');
   if (todosStr != null) {
       todos = JSON.parse(todosStr); 
