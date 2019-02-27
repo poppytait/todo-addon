@@ -49,7 +49,7 @@ const markAsComplete = (event) => {
   let complete = document.getElementsByClassName('complete');
 
   if (checkBox.checked) {
-    complete[id].style.display = "block"
+    complete[id].style.display = "inline"
   } else {
     complete[id].style.display = "none";
   }
@@ -71,10 +71,12 @@ const remove = (event) => {
   return false;
 }
 
+const enter = (event) => {
+  if (event.keyCode === 13) {
+    add();
+    document.getElementById('task').value='';
+  }
+}
 
-document.getElementById('add').addEventListener('click', add);
+document.getElementById('task').addEventListener('keypress', enter);
 show();
-
-
-
-
