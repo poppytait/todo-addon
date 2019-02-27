@@ -22,14 +22,16 @@ const add = () => {
 const show = () => {
   let todos = getTodos();
 
-  let renderTodo = '<ul>'
+  let renderTodo = document.getElementById('todos')
 
   for(let i=0; i<todos.length; i++) {
-    renderTodo += `<li>${todos[i]}<button class="remove" id="${i}">x</button><input type="checkbox" id="${i}"><p class="complete" style="display:none">complete</p></li>`;
+    renderTodo += `<li>${todos[i]}<button class="remove" id="${i}">x</button>
+                   <input type="checkbox" id="${i}">
+                   <p class="complete" style="display:none">complete</p></li>`;
   };
-  renderTodo += '</ul>';
-
+  
   document.getElementById('todos').innerHTML = renderTodo;
+
 
   let buttons = document.getElementsByClassName('remove');
   Array.from(buttons).map(button => button.addEventListener('click', remove));
@@ -55,7 +57,6 @@ const markAsComplete = (event) => {
 
 
 const remove = (event) => {
-  console.log(event)
   let id = event.target.id;
   let todos = getTodos();
   todos.splice(id, 1); 
