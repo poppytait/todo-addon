@@ -3,6 +3,7 @@ class Checkbox {
         this.uniqId = info.uniqId;
         this.name = info.name;
         this.contentCheckbox = info.contentCheckbox;
+        this.input = info.input;
         this.removeButton = '';
         this.checkBoxButton = ''
         this.listElement = '';
@@ -18,7 +19,7 @@ class Checkbox {
     remove() {
         this.removeButton.addEventListener('click', () => {
             removeElement(this.listElement);
-            triggerEventDelete(this.uniqId);
+            triggerEventDelete(this.uniqId, this.input);
         });
     }
 
@@ -46,9 +47,9 @@ const removeElement = (element) => {
     element && element.parentNode && element.parentNode.removeChild(element);
 }
 
-const triggerEventDelete = (uniqId) => {
+const triggerEventDelete = (uniqId, input) => {
     var event = new CustomEvent('deleteCheckbox', { 'detail': uniqId });
-    document.dispatchEvent(event);
+    input.dispatchEvent(event);
 }
 
 export default Checkbox;

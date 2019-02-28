@@ -1,6 +1,6 @@
-import Input from './components/input';
+import Todo from './components/todo';
 
 const input = 'task';
 const contentCheckbox = 'todos';
 
-new Input({input, contentCheckbox});
+new Todo({input, contentCheckbox});

@@ -3,7 +3,7 @@ var uniqid = require('uniqid');
 
 const todoColection = [];
 
-class Input {
+class Todo {
     constructor(elements) {
         this.input = document.getElementById(elements.input);
         this.contentCheckbox = elements.contentCheckbox;
@@ -12,12 +12,13 @@ class Input {
     }
 
     initCheckboxKeeped() {
-        if(existLocalStoragr) {
+        if(existLocalStorage) {
             JSON.parse(localStorage.getItem('todo')).forEach(element => {
                 newCheckbox({
                     uniqId: element.uniqId,
                     name: element.name,
-                    contentCheckbox: element.contentCheckbox
+                    contentCheckbox: element.contentCheckbox,
+                    input: this.input
                 });
             });
         }
@@ -34,7 +35,8 @@ class Input {
                 newCheckbox({
                     uniqId: uniqid(),
                     name: getInputValue(this.input),
-                    contentCheckbox: this.contentCheckbox
+                    contentCheckbox: this.contentCheckbox,
+                    input: this.input
                 });
 
                 clearInputValue(this.input);
@@ -44,7 +46,7 @@ class Input {
     }
 
     onDelete() {
-        document.addEventListener('deleteCheckbox', (event) => {
+        this.input.addEventListener('deleteCheckbox', (event) => {
             todoColection.filter((el, index) => {
                 if (el.uniqId == event.detail) {
                     todoColection.splice(index, 1);
@@ -61,12 +63,13 @@ const newCheckbox = (info) => {
         new Checkbox({
             uniqId: info.uniqId,
             name: info.name,
-            contentCheckbox: info.contentCheckbox
+            contentCheckbox: info.contentCheckbox,
+            input: info.input
         })
     );
 }
 
-const existLocalStoragr = () => {
+const existLocalStorage = () => {
     return localStorage.getItem('todo') !== undefined;
 }
 
@@ -85,4 +88,4 @@ const pressEnter = (event) => {
     return  event.keyCode === 13;
 }
 
-export default Input;
+export default Todo;
