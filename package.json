@@ -1,0 +1,27 @@
+{
+  "name": "todo-addon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "webpack:dev": "webpack js/main.js -o dist/bundle.js --mode=development --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poppytait/todo-addon.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/poppytait/todo-addon/issues"
+  },
+  "homepage": "https://github.com/poppytait/todo-addon#readme",
+  "dependencies": {
+    "uniqid": "^5.0.3",
+    "webpack": "^4.29.6"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.2.3"
+  }
+}

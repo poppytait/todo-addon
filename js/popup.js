@@ -2,7 +2,7 @@ const getTodos = () => {
   let todos = [];
   let todosStr = localStorage.getItem('todo');
   if (todosStr != null) {
-      todos = JSON.parse(todosStr); 
+      todos = JSON.parse(todosStr);
   }
   return todos;
 }
@@ -29,7 +29,7 @@ const show = () => {
                    <input type="checkbox" id="${i}">
                    <p class="complete" style="display:none">complete</p></li>`;
   };
-  
+
   document.getElementById('todos').innerHTML = renderTodo;
 
 
@@ -43,7 +43,7 @@ const show = () => {
 const markAsComplete = (event) => {
   let checkBox = event.target;
   let id = event.target.id;
-  
+
   let complete = document.getElementsByClassName('complete');
 
   if (checkBox.checked) {
@@ -59,7 +59,7 @@ const markAsComplete = (event) => {
 const remove = (event) => {
   let id = event.target.id;
   let todos = getTodos();
-  todos.splice(id, 1); 
+  todos.splice(id, 1);
   localStorage.setItem('todo', JSON.stringify(todos));
 
   show();
